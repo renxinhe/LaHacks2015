@@ -75,7 +75,7 @@ public class GrapherServlet extends HttpServlet {
 				resp.setContentType("text/plain");
 				try{
 					if(list != null && !list.isEmpty()){
-						resp.getOutputStream().println(list.getLast());
+						resp.getOutputStream().println("{\"data\":\""+list.getLast()+"\"}");
 					}else{
 						
 					}

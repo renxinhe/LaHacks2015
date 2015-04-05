@@ -27,6 +27,7 @@ ajax.x = function() {
 
 ajax.send = function(url, callback, method, data, sync) {
     var x = ajax.x();
+    x.open(method, url, sync);
     x.onreadystatechange = function() {
         if (x.readyState == 4) {
             callback(x.responseText)
@@ -35,8 +36,7 @@ ajax.send = function(url, callback, method, data, sync) {
     if (method == 'POST') {
         x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     }
-    x.open(method, url, sync);
-    x.send(data);
+    x.send(data)
 };
 
 ajax.get = function(url, data, callback, sync) {
@@ -63,11 +63,10 @@ onload = function refresh() {
     function fetch() {
         ajax.get('live', {action: 'get', rand:''+new Date().getTime()}, 
             function(data) {
-                img.setAttribute( 'src', 'data:image/png;base64,'+data);
+                console.log(data);
                 fetch();
             });
     }
-    fetch()
 } 
 
 

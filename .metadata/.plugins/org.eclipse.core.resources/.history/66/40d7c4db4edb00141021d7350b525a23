@@ -9,14 +9,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DatatypeConverter;
 
 import com.github.sarxos.webcam.Webcam;
 
 public class GrapherServlet extends HttpServlet {
 	
 	private boolean RUNNING = false;
-	private ArrayDeque<String> list;
+	private ArrayDeque<byte[]> list;
 	private static int LIM = 30;
 	
 	public void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -28,7 +27,7 @@ public class GrapherServlet extends HttpServlet {
 				synchronized(this){
 					if(!RUNNING){
 						final Webcam webcam = Webcam.getDefault();
-						list = new ArrayDeque<String>();
+						list = new ArrayDeque<byte[]>();
 				        if(webcam == null){
 				        	out.println("false");
 				        }else{
@@ -51,7 +50,7 @@ public class GrapherServlet extends HttpServlet {
 											ImageIO.write(image, "JPG", b);
 
 								            synchronized(GrapherServlet.this){
-								            	list.add(DatatypeConverter.printBase64Binary(b.toByteArray()));
+								            	list.add(b.toByteArray());
 								            	if(list.size() > 30){
 								            		list.removeFirst();
 								            	}
@@ -72,10 +71,10 @@ public class GrapherServlet extends HttpServlet {
 			}else if(action.equals("stop")){
 				RUNNING = false;
 			}else if(action.equals("get")){
-				resp.setContentType("text/plain");
+				resp.setContentType("image/jpg");
 				try{
 					if(list != null && !list.isEmpty()){
-						resp.getOutputStream().println(list.getLast());
+						resp.getOutputStream().write(list.getLast());
 					}else{
 						
 					}

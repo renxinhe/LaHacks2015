@@ -72,10 +72,10 @@ public class GrapherServlet extends HttpServlet {
 			}else if(action.equals("stop")){
 				RUNNING = false;
 			}else if(action.equals("get")){
-				resp.setContentType("text/plain");
+				resp.setContentType("image/jpg");
 				try{
 					if(list != null && !list.isEmpty()){
-						resp.getOutputStream().println(list.getLast());
+						resp.getOutputStream().write(list.getLast());
 					}else{
 						
 					}
