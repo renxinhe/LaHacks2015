@@ -1,0 +1,67 @@
+package com.wynd.grapher;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.github.sarxos.webcam.Webcam;
+
+public class GrapherServlet extends HttpServlet {
+	
+	private boolean RUNNING = false;
+	private ArrayDeque<BufferedImage> list;
+	private static int LIM = 30;
+	
+	public void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/plain");
+		ServletOutputStream out = resp.getOutputStream();
+		String action = req.getParameter("action");
+		if( action != null){
+			if(action.equals("start")){
+				synchronized(this){
+					if(!RUNNING){
+						final Webcam webcam = Webcam.getDefault();
+						list = new ArrayDeque<BufferedImage>();
+				        if(webcam == null){
+				        	out.println("false");
+				        }else{
+				            webcam.open();
+							RUNNING = true;
+							new Thread(new Runnable(){
+								public void run(){
+									while(true){
+										synchronized(GrapherServlet.this){
+											if(!RUNNING){
+												break;
+											}
+										}
+
+							            BufferedImage image = webcam.getImage();
+							            synchronized(GrapherServlet.this){
+							            	list.add(image);
+							            	if(list.size() > 30){
+							            		list.removeFirst();
+							            	}
+							            	System.out.println(list.size());
+							            }
+							            // save image to PNG file
+							            //ImageIO.write(image, "PNG", new File("test2.png"));
+									}
+								}
+							});
+				        }
+					}
+				}
+			}else if(action.equals("stop")){
+				RUNNING = false;
+			}
+		}
+	}
+
+	
+}

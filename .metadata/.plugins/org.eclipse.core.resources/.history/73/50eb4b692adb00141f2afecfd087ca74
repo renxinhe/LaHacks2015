@@ -1,0 +1,30 @@
+package com.wynd.grapher;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class GrapherServlet extends HttpServlet {
+	
+	private static boolean RUNNING = false;
+	
+	public void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/plain");
+		String action = req.getParameter("action");
+		if( action != null){
+			if(action.equals("start")){
+				
+			}
+		}
+	}
+
+	public static boolean isRUNNING() {
+		return RUNNING;
+	}
+
+	public static void setRUNNING(boolean rUNNING) {
+		RUNNING = rUNNING;
+	}
+	
+}

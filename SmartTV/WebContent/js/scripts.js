@@ -4,7 +4,7 @@ if(!!navigator.setResolution)
 onload = function refresh() { 
     var img = document.getElementById("webcam"); 
     setInterval(function () { 
-        img.src = "java/test.png?" + new Date().getTime();
+        img.src = "live?action=get&rand=" + new Date().getTime();
     }, 100); 
 } 
 
