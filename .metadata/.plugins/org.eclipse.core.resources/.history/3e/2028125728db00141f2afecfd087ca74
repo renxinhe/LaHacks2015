@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
+<glassfish-web-app>
+    <context-root>/SmartTV</context-root>
+    	<servlet>
+		<servlet-name>Grapher</servlet-name>
+		<servlet-class>com.wynd.grapher.GrapherServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Grapher</servlet-name>
+		<url-pattern>/grapher</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</glassfish-web-app>

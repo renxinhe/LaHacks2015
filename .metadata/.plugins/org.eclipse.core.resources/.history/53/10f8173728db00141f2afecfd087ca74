@@ -1,0 +1,30 @@
+package com.wynd.grapher;
+
+public class TreeWatch {
+	public static final String WEB = "http://beta.treehacks.com", LOGIN = "/login", PAGE = "/fun_with_git",
+			USER = "wynd07@gmail.com", PASS = "goopoo", YUM = "connect.sid";
+	public static boolean watch(String[] ret){
+		Fetcher f = new Fetcher(WEB+LOGIN);
+		f.fetch();
+		//.out.println(f.getCookies());
+		//this might blow up
+		String cookie = f.getCookies().get(0).split("; ")[0].split("=")[1];
+		//System.out.println(cookie);
+		f = new Fetcher(WEB+LOGIN);
+		f.addPost("email", USER);
+		f.addPost("password", PASS);
+		f.addCookie(YUM, cookie);
+		f.fetch();
+		f = new Fetcher(WEB+PAGE);
+		f.addCookie(YUM, cookie);
+		f.fetch();
+		//System.out.println(f.getHtml());
+		ret[0] = f.getHtml();
+		if( f.getHtml().contains("a little ahead of us"))
+			return false;
+		return true;
+	}
+	public static void main(String[] args){
+		System.out.println(watch(new String[1]));
+	}
+}

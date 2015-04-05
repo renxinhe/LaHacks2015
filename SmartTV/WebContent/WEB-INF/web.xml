@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <display-name>GProServer</display-name>
+  	<servlet>
+		<servlet-name>Webcam</servlet-name>
+		<servlet-class>com.wynd.grapher.GrapherServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Webcam</servlet-name>
+		<url-pattern>/live</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>

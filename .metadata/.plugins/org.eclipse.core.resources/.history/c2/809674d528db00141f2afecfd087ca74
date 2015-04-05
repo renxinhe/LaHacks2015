@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>GProServer</display-name>
+  	<servlet>
+		<servlet-name>TPro</servlet-name>
+		<servlet-class>wynd.tpro.TProServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TPro</servlet-name>
+		<url-pattern>/abc</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SPro</servlet-name>
+		<servlet-class>wynd.tpro.SProServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SPro</servlet-name>
+		<url-pattern>/def</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+        <welcome-file>abc</welcome-file>
+    </welcome-file-list>
+</web-app>
