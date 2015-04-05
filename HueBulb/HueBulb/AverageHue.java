@@ -6,16 +6,24 @@ import java.net.URL;
 import java.util.*;
 
 public class AverageHue {
+	static float[] avgScreenHSB;
+	static final int NEST_TIMER = 100;
+	
 	public static void main(String args[]) throws Exception {
 		Robot r = new Robot();
 //		sendColor(HSBtoPhilipHue(Color.RGBtoHSB(0, 0, 225, null)));
 //		System.out.println(Arrays.toString(HSBtoPhilipHue(Color.RGBtoHSB(0, 0, 225, null))));
+		int nestCounter = 0;
 		while(true) {
 			r.delay(100);
 			BufferedImage img = r.createScreenCapture(new Rectangle(0, 45, 1435, 810));
 			float[] avgHSV = avgImageHSL(img);
 			System.out.println(Arrays.toString(avgHSV));
 			sendColor(avgHSV);
+			if (nestCounter++ >= NEST_TIMER) {
+				NestController.updateTemp();
+				nestCounter = 0;
+			}
 		}
 	}
 	
@@ -31,7 +39,7 @@ public class AverageHue {
 		osw.write(String.format("{\"hue\":%f, \"saturation\":%f, \"level\":%f}", HSV[0], HSV[1], HSV[2]));
 		osw.flush();
 		osw.close();
-		System.err.println(connection.getResponseCode());
+		System.err.println("HueBulb: " + connection.getResponseCode());
 	}
 	
 	public static float[] avgImageHSL(BufferedImage img) {
@@ -55,6 +63,7 @@ public class AverageHue {
 		int bAvg = bSum / (height * width);
 		
 		float[] HSB = Color.RGBtoHSB(rAvg, gAvg, bAvg, null);
+		avgScreenHSB = Arrays.copyOf(HSB, 3);
 		return HSBtoPhilipHue(HSB);
 	}
 	

@@ -1,0 +1,5 @@
+Let It Go:
+http://10.123.1.58:8080/dvr/play?uniqueId=126&playFrom=offset&offset=1945
+
+In Summer:
+http://10.123.1.58:8080/dvr/play?uniqueId=126&playFrom=offset&offset=2985
