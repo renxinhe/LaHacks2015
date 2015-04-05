@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+}
+#animation { 
+    background-image: url(../media/charging.png);
+    background-repeat: no-repeat; 
+    height: 102px; 
+    width: 140px; 
+}
+

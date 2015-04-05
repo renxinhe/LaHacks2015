@@ -1,3 +1,0 @@
-#GlassFish 3
-#Sat Apr 04 23:48:22 PDT 2015
-org.eclipse.jst.jee.server\:SmartTV=/Users/wynd/Downloads/glassfish4/glassfish/domains/domain1/eclipseApps/SmartTV
